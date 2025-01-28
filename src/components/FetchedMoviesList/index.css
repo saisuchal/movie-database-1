@@ -1,0 +1,101 @@
+.flex-column {
+  display: flex-column;
+  flex-direction: column;
+  margin-top: 10vh;
+}
+.loader-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2vw;
+  height: 5vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  background-color: #11cced;
+}
+
+.tab-list {
+  display: flex;
+  list-style-type: none;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.tab-button {
+  background: transparent;
+  border-width: 0px;
+}
+
+.search-input {
+  max-width: 10vw;
+}
+
+.popular-movie-list {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 5vw;
+  margin-top: 0px;
+  padding: 0px;
+}
+
+.heading {
+  height: 5vh;
+  margin-left: auto;
+  margin-right: auto;
+  width:100vw;
+}
+
+.popular-movie-list-item {
+  display: flex;
+  flex-direction: column;
+  margin: 2vw;
+  max-width: 125px;
+}
+
+.poster-image {
+  max-width: 125px;
+  max-height: 200px;
+}
+
+.details-button {
+  background-color: lightgrey;
+  color: black;
+  margin-top: 5px;
+  max-width: 125px;
+  border-radius: 2px;
+}
+
+.movie-details-section {
+  display: flex;
+  flex-direction: row;
+  padding: 5vw;
+  padding-bottom: 0px;
+  justify-content: flex-start;
+}
+
+.cast-details-section {
+  display: flex;
+  flex-direction: column;
+  padding: 5vw;
+  justify-content: center;
+}
+
+.cast-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style-type: none;
+  flex-wrap: wrap;
+}
