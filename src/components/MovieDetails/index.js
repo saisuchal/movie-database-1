@@ -41,11 +41,7 @@ const MovieDetails = () => (
                   <li key={member.id} style={{margin: '1vw'}}>
                     <img
                       className="poster-image"
-                      src={
-                        member.profilePath
-                          ? `https://image.tmdb.org/t/p/original/${member.profilePath}`
-                          : 'https://res.cloudinary.com/dahbfvpdn/image/upload/v1737706889/blank-profile-picture-973460_1280_qwdwe1_c_crop_ar_3_4_irhwql_c_crop_w_125_h_187.5_uufdv2.webp'
-                      }
+                      src={`https://image.tmdb.org/t/p/original/${member.profilePath}`}
                       alt={member.name}
                     />
                     <div style={{overflow: 'auto'}}>
