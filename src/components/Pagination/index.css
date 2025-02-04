@@ -16,7 +16,7 @@
   border: 0px solid;
   background-color: rgb(203, 241, 107);
   box-shadow: 5px 5px 2px grey;
-  font-size:20px;
+  font-size: 20px;
 }
 
 .next-button:active {
@@ -31,7 +31,7 @@
   border: 0px solid;
   background-color: rgb(241, 210, 107);
   box-shadow: -5px 5px 2px grey;
-  font-size:20px;
+  font-size: 20px;
 }
 
 .prev-button:active {
