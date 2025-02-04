@@ -1,0 +1,86 @@
+.pagination {
+  display: flex;
+  flex-direction: row;
+  width: 25vw;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.next-button {
+  padding: 0px;
+  height: 5vw;
+  width: 5vw;
+  border-radius: 5px;
+  border: 0px solid;
+  background-color: rgb(203, 241, 107);
+  box-shadow: 5px 5px 2px grey;
+  font-size:20px;
+}
+
+.next-button:active {
+  transform: translateY(4px);
+}
+
+.prev-button {
+  padding: 0px;
+  height: 5vw;
+  width: 5vw;
+  border-radius: 5px;
+  border: 0px solid;
+  background-color: rgb(241, 210, 107);
+  box-shadow: -5px 5px 2px grey;
+  font-size:20px;
+}
+
+.prev-button:active {
+  transform: translateY(4px);
+}
+
+.active-page-display {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .next-button {
+    height: 6vw;
+    width: 6vw;
+    font-size: 18px;
+  }
+  .prev-button {
+    height: 6vw;
+    width: 6vw;
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 767px) {
+  .next-button {
+    height: 6vw;
+    width: 6vw;
+    font-size: 16px;
+  }
+  .prev-button {
+    height: 6vw;
+    width: 6vw;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .next-button {
+    height: 10vw;
+    width: 10vw;
+    font-size: 14px;
+  }
+  .prev-button {
+    height: 10vw;
+    width: 10vw;
+    font-size: 14px;
+  }
+  .pagination {
+    width: 30vw;
+  }
+}

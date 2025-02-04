@@ -1,53 +1,9 @@
-.flex-column {
-  display: flex-column;
-  flex-direction: column;
-  margin-top: 10vh;
-}
-.loader-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-.navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2vw;
-  height: 5vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  background-color: #11cced;
-}
-
 .tab-list {
   display: flex;
   list-style-type: none;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-}
-
-.tab-button {
-  background: transparent;
-  border-width: 0px;
-}
-
-.search-input {
-  max-width: 10vw;
-}
-
-.popular-movie-list {
-  display: flex;
-  flex-direction: row;
-  list-style-type: none;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 5vw;
-  margin-top: 0px;
-  padding: 0px;
 }
 
 .heading {
@@ -57,11 +13,31 @@
   width: 100vw;
 }
 
+.popular-movie-list {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 5vw;
+  margin-top: 0px;
+  padding: 0px;
+}
+
 .popular-movie-list-item {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   margin: 2vw;
   max-width: 125px;
+  text-align: center;
+  font-size: 8px;
+}
+
+.rating-para {
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .poster-image {
@@ -70,32 +46,12 @@
 }
 
 .details-button {
-  background-color: lightgrey;
-  color: black;
-  margin-top: 5px;
+  background-color: rgb(85, 161, 236);
+  color: white;
+  border: 3px rgb(203, 202, 202) dotted;
+  padding: 4px;
+  font-size: 14px;
+  font-weight: 700;
   max-width: 125px;
-  border-radius: 2px;
-}
-
-.movie-details-section {
-  display: flex;
-  flex-direction: row;
-  padding: 5vw;
-  padding-bottom: 0px;
-  justify-content: flex-start;
-}
-
-.cast-details-section {
-  display: flex;
-  flex-direction: column;
-  padding: 5vw;
-  justify-content: center;
-}
-
-.cast-list {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  list-style-type: none;
-  flex-wrap: wrap;
+  border-radius: 5px;
 }

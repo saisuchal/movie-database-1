@@ -7,27 +7,27 @@ const NavBar = () => (
     {value => {
       const {switchTab, searchInput, searchMovies, search} = value
       return (
-        <div className="navbar">
-          <h1>movieDB</h1>
+        <nav className="navbar">
+          <h1 className="website">movieDB</h1>
           <ul className="tab-list">
-            <Link to="/">
-              <li>
+            <li className="button-xs-sizing">
+              <Link to="/">
                 <button
                   className="tab-button"
                   type="button"
-                  value="Popular"
+                  id="Popular"
                   onClick={switchTab}
                 >
-                  Popular
+                  Home
                 </button>
-              </li>
-            </Link>
+              </Link>
+            </li>
             <Link to="/top-rated">
-              <li>
+              <li className="button-xs-sizing">
                 <button
                   className="tab-button"
                   type="button"
-                  value="Top Rated"
+                  id="Top Rated"
                   onClick={switchTab}
                 >
                   Top Rated
@@ -35,11 +35,11 @@ const NavBar = () => (
               </li>
             </Link>
             <Link to="/upcoming">
-              <li>
+              <li className="button-xs-sizing">
                 <button
                   className="tab-button"
                   type="button"
-                  value="Upcoming"
+                  id="Upcoming"
                   onClick={switchTab}
                 >
                   Upcoming
@@ -47,26 +47,28 @@ const NavBar = () => (
               </li>
             </Link>
             <li>
-              <div>
+              <div className="search-div">
                 <input
                   className="search-input"
                   type="textbox"
                   placeholder="search"
                   onChange={searchInput}
+                  value={search}
                 />
-                <Link to="/search-movies">
+                <Link to="/search-movies" className="search-button-xs-sizing">
                   <button
                     type="button"
                     onClick={searchMovies}
-                    value="Search Movies"
+                    id="Search Movies"
+                    className="search-button"
                   >
-                    <h1 style={{fontSize: '10px'}}>Search</h1>
+                    Search
                   </button>
                 </Link>
               </div>
             </li>
           </ul>
-        </div>
+        </nav>
       )
     }}
   </MovieDatabaseContext.Consumer>

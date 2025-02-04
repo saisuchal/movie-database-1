@@ -13,8 +13,9 @@ class App extends Component {
   state = {
     formattedData: {},
     search: '',
-    isLoading: true,
+    isFetchSuccess: false,
     activeTab: 'Popular',
+    activePageDisplay: 1,
     movieId: '',
   }
 
@@ -25,7 +26,7 @@ class App extends Component {
   }
 
   fetchData = async () => {
-    const {search, movieId, activeTab} = this.state
+    const {search, activeTab, activePageDisplay, movieId} = this.state
     let url1
     let url2
     const token =
@@ -33,23 +34,23 @@ class App extends Component {
     const apiKey = '39c87a9862389b0187350194900cd32b'
     switch (`${activeTab}`) {
       case 'Popular':
-        url1 = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
+        url1 = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${activePageDisplay}`
         break
       case 'Top Rated':
-        url1 = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
+        url1 = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=${activePageDisplay}`
         break
       case 'Upcoming':
-        url1 = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=en-US&page=1`
+        url1 = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=en-US&page=${activePageDisplay}`
         break
       case 'Movie Details':
         url1 = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en`
         url2 = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}&language=en-US`
         break
       case 'Search Movies':
-        url1 = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${search}&page=1`
+        url1 = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${search}&page=${activePageDisplay}`
         break
       default:
-        url1 = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
+        url1 = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${activePageDisplay}`
         break
     }
 
@@ -59,34 +60,44 @@ class App extends Component {
         Authorization: `Bearer ${token}`,
       },
     }
-
     if (activeTab === 'Movie Details') {
-      const movieResponse = await fetch(url1, options)
-      const castAndCrewResponse = await fetch(url2, options)
-      const movieResponseData = await movieResponse.json()
-      const castAndCrewResponseData = await castAndCrewResponse.json()
-      const formattedMovieData = this.formatMovieDetails(movieResponseData)
-      const formattedCastAndCrewData = this.formatCastAndCrewData(
-        castAndCrewResponseData,
-      )
-      const formattedData = {
-        movie: formattedMovieData,
-        castAndCrew: formattedCastAndCrewData,
+      try {
+        const movieResponse = await fetch(url1, options)
+        const castAndCrewResponse = await fetch(url2, options)
+        const movieResponseData = await movieResponse.json()
+        console.log(movieResponseData)
+        const castAndCrewResponseData = await castAndCrewResponse.json()
+        const formattedMovieData = this.formatMovieDetails(movieResponseData)
+        const formattedCastAndCrewData = this.formatCastAndCrewData(
+          castAndCrewResponseData,
+        )
+        const formattedData = {
+          movie: formattedMovieData,
+          castAndCrew: formattedCastAndCrewData,
+        }
+        this.setState({isFetchSuccess: true, formattedData})
+      } catch (e) {
+        const errorMsg = e.error_message
+        console.log(errorMsg)
       }
-      this.setState({isLoading: false, formattedData})
     } else {
-      const response = await fetch(url1, options)
-      const data = await response.json()
-      console.log(data)
-      const formattedData = this.formatData(data)
-      console.log(formattedData)
-      this.setState({isLoading: false, formattedData})
+      try {
+        if (activeTab !== 'Movie Details') {
+          console.log(url1)
+          const response = await fetch(url1, options)
+          const data = await response.json()
+          const formattedData = this.formatData(data)
+          console.log(formattedData)
+          this.setState({isFetchSuccess: true, formattedData})
+        }
+      } catch (e) {
+        const errorMsg = e.error_message
+        console.log(errorMsg)
+      }
     }
   }
 
-  formatData = responseData => this.formatMovieData(responseData)
-
-  formatMovieData = data => ({
+  formatData = data => ({
     page: data.page,
     results: this.formatMovieDataArray(data.results),
     totalPages: data.total_pages,
@@ -226,14 +237,22 @@ class App extends Component {
   }
 
   switchTab = event => {
-    const {value} = event.target
-    this.setState({isLoading: true, activeTab: value}, this.fetchData)
+    const {id} = event.target
+    this.setState(
+      {
+        isFetchSuccess: false,
+        activeTab: id,
+        activePageDisplay: 1,
+        search: '',
+      },
+      this.fetchData,
+    )
   }
 
   viewMovieDetails = movieId => {
     const {history} = this.props
     this.setState(
-      {activeTab: 'Movie Details', movieId, isLoading: true},
+      {activeTab: 'Movie Details', movieId, isFetchSuccess: false},
       this.fetchData,
     )
     history.push(`/movie-details/${movieId}`)
@@ -245,16 +264,78 @@ class App extends Component {
   }
 
   searchMovies = event => {
-    const {value} = event.target
-    this.setState({activeTab: value, isLoading: true}, this.fetchData)
+    const {id} = event.target
+    console.log(id)
+    this.setState(
+      {activeTab: id, activePageDisplay: 1, isFetchSuccess: false},
+      this.fetchData,
+    )
+  }
+
+  nextPage = () => {
+    const {formattedData, activePageDisplay, activeTab} = this.state
+    const {totalPages} = formattedData
+    const {history} = this.props
+    let path
+    if (activeTab === 'Top Rated') {
+      path = `/top-rated/${activePageDisplay + 1}`
+    } else if (activeTab === 'Upcoming') {
+      path = `/upcoming/${activePageDisplay + 1}`
+    } else if (activeTab === 'Search Movies') {
+      path = `/search-movies/${activePageDisplay + 1}`
+    } else if (activeTab === 'Popular') {
+      path = `/${activePageDisplay + 1}`
+    }
+    if (activePageDisplay !== totalPages) {
+      this.setState(
+        prevState => ({
+          activePageDisplay: prevState.activePageDisplay + 1,
+          isFetchSuccess: false,
+        }),
+        this.fetchData,
+      )
+      history.push(path)
+    }
+  }
+
+  previousPage = () => {
+    const {activePageDisplay, activeTab} = this.state
+    const {history} = this.props
+    let path
+    if (activeTab === 'Top Rated') {
+      path = `/top-rated/${activePageDisplay - 1}`
+    } else if (activeTab === 'Upcoming') {
+      path = `/upcoming/${activePageDisplay - 1}`
+    } else if (activeTab === 'Search Movies') {
+      path = `/search-movies/${activePageDisplay - 1}`
+    } else {
+      path = `/${activePageDisplay - 1}`
+    }
+    if (activePageDisplay !== 1) {
+      this.setState(
+        prevState => ({
+          activePageDisplay: prevState.activePageDisplay - 1,
+          isFetchSuccess: false,
+        }),
+        this.fetchData,
+      )
+      history.push(path)
+    }
   }
 
   render() {
-    const {formattedData, search, isLoading, activeTab} = this.state
+    const {
+      formattedData,
+      search,
+      isFetchSuccess,
+      activeTab,
+      activePageDisplay,
+    } = this.state
+    console.log(this.state)
     return (
       <MovieDatabaseContext.Provider
         value={{
-          isLoading,
+          isFetchSuccess,
           formattedData,
           fetchData: this.fetchData,
           switchTab: this.switchTab,
@@ -263,6 +344,9 @@ class App extends Component {
           searchMovies: this.searchMovies,
           search,
           activeTab,
+          activePageDisplay,
+          nextPage: this.nextPage,
+          previousPage: this.previousPage,
         }}
       >
         <div>
@@ -270,9 +354,9 @@ class App extends Component {
           <Switch>
             <Route path="/upcoming" component={UpcomingMovies} />
             <Route path="/top-rated" component={TopRatedMovies} />
-            <Route path="/movie-details/:id" component={MovieDetails} />
             <Route path="/search-movies" component={SearchMovies} />
-            <Route exact path="/" component={PopularMovies} />
+            <Route path="/movie-details/:id" component={MovieDetails} />
+            <Route path="/" component={PopularMovies} />
           </Switch>
         </div>
       </MovieDatabaseContext.Provider>

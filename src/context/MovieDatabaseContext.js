@@ -4,13 +4,13 @@ const MovieDatabaseContext = React.createContext({
   activeTab: '',
   activePageNo: '',
   search: '',
-  movieId: '',
   formattedData: {},
   switchTab: () => {},
   viewMovieDetails: () => {},
   searchInput: () => {},
   searchMovies: () => {},
   url: '',
+  isFetchSuccess: '',
 })
 
 export default MovieDatabaseContext

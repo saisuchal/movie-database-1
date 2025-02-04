@@ -1,4 +1,3 @@
-import Loader from 'react-loader-spinner'
 import {withRouter} from 'react-router-dom'
 import './index.css'
 import MovieDatabaseContext from '../../context/MovieDatabaseContext'
@@ -6,59 +5,64 @@ import MovieDatabaseContext from '../../context/MovieDatabaseContext'
 const MovieDetails = () => (
   <MovieDatabaseContext.Consumer>
     {value => {
-      const {formattedData, isLoading} = value
-      if (isLoading === false) {
-        const {movie, castAndCrew} = formattedData
-        const {cast} = castAndCrew
-        return (
-          <>
+      const {formattedData, isFetchSuccess} = value
+      const {movie, castAndCrew} = formattedData
+      return (
+        isFetchSuccess && (
+          <div className="all-details">
             <div className="movie-details-section">
               <img
-                className="poster-image"
-                style={{
-                  marginRight: '5vw',
-                  minWidth: '15vw',
-                  minHeight: '20vw',
-                }}
+                className="details-poster-image"
                 src={`https://image.tmdb.org/t/p/original/${movie.posterPath}`}
                 alt={movie.title}
               />
-              <div>
-                <h1>{movie.title}</h1>
-                <p>{movie.voteAverage.toFixed(1)}/10</p>
-                <p>
-                  {movie.runtime}min {movie.releaseDate}
-                </p>
-                <p>{movie.genres}</p>
-                <h3>Overview</h3>
-                <p>{movie.overview}</p>
+              <div className="movie-info-div">
+                <div className="movie-info">
+                  <h1 className="movie-info-head">{movie.title}</h1>
+                  <p className="movie-info-para">
+                    {movie.runtime}min {movie.releaseDate}
+                  </p>
+                  <p className="movie-info-para">{movie.genres}</p>
+                  <h4>Overview</h4>
+                  <p className="movie-info-para">{movie.overview}</p>
+                </div>
+                <div className="movie-rating-div">
+                  <p className="movie-info-para">Rating</p>
+                  <p className="movie-rating">{movie.voteAverage.toFixed(1)}</p>
+                  <p className="movie-info-para">{movie.voteCount} Votes</p>
+                </div>
               </div>
             </div>
             <div className="cast-details-section">
-              <h3>Cast</h3>
+              <div>
+                <h2 className="cast-head">Cast</h2>
+              </div>
+              <hr style={{width: '90vw'}} />
               <ul className="cast-list">
-                {cast.map(member => (
+                {castAndCrew.cast.map(member => (
                   <li key={member.id} style={{margin: '1vw'}}>
                     <img
                       className="poster-image"
                       src={`https://image.tmdb.org/t/p/original/${member.profilePath}`}
                       alt={member.name}
                     />
-                    <div style={{overflow: 'auto'}}>
-                      <p style={{fontWeight: 'bold'}}>{member.name}</p>
-                      <p style={{color: 'grey'}}>as {member.character}</p>
+                    <div className="cast-info">
+                      <p
+                        style={{fontWeight: 'bold'}}
+                        className="movie-info-para"
+                      >
+                        {member.name}
+                      </p>
+                      <p style={{color: 'grey'}} className="movie-info-para">
+                        as {member.character}
+                      </p>
                     </div>
                   </li>
                 ))}
               </ul>
             </div>
-          </>
+          </div>
         )
-      }
-      return (
-        <div className="loader-div">
-          <Loader height="80" width="80" color="#4fa94d" type="ThreeDots" />
-        </div>
       )
     }}
   </MovieDatabaseContext.Consumer>

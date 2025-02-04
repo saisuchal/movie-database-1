@@ -1,81 +1,20 @@
-.flex-column {
-  display: flex-column;
-  flex-direction: column;
-  margin-top: 10vh;
-}
-.loader-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2vw;
-  height: 5vh;
+.all-details {
+  margin-top: 7vh;
   width: 100vw;
-  position: fixed;
-  top: 0;
-  background-color: #11cced;
-}
-
-.tab-list {
-  display: flex;
-  list-style-type: none;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.tab-button {
-  background: transparent;
-  border-width: 0px;
-}
-
-.search-input {
-  max-width: 10vw;
-}
-
-.popular-movie-list {
-  display: flex;
-  flex-direction: row;
-  list-style-type: none;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 5vw;
-  margin-top: 0px;
-  padding: 0px;
-}
-
-.heading {
-  height: 5vh;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100vw;
-}
-
-.popular-movie-list-item {
-  display: flex;
-  flex-direction: column;
-  margin: 2vw;
-  max-width: 125px;
 }
 
 .poster-image {
-  max-width: 125px;
+  max-width: 120px;
   max-height: 200px;
+  border-radius: 10px;
+  border: 3px solid white;
 }
 
-.details-button {
-  background-color: lightgrey;
-  color: black;
-  margin-top: 5px;
-  max-width: 125px;
-  border-radius: 2px;
+.details-poster-image {
+  min-height: 20vw;
+  max-height: 20vw;
+  border-radius: 10px;
+  border: 3px solid white;
 }
 
 .movie-details-section {
@@ -90,7 +29,8 @@
   display: flex;
   flex-direction: column;
   padding: 5vw;
-  justify-content: center;
+  padding-top: 0px;
+  justify-content: space-around;
 }
 
 .cast-list {
@@ -99,4 +39,174 @@
   justify-content: space-around;
   list-style-type: none;
   flex-wrap: wrap;
+  padding: 0px;
+}
+
+.movie-info-head {
+  font-size: 30px;
+  margin-top: 0px;
+}
+
+.movie-info-para {
+  font-size: 20px;
+  margin: 5px;
+}
+
+.cast-info {
+  margin-top: 3px;
+  border-radius: 10px;
+  background-color: rgb(224, 221, 221);
+  overflow-x: hidden;
+  padding: 4px;
+  width: 120px;
+  text-align: center;
+}
+
+.cast-head {
+  font-size: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+.movie-rating {
+  font-size: 30px;
+  font-weight: 1000;
+  border: 4px;
+  margin: 0px;
+}
+
+.movie-rating-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  min-height: 10vw;
+  min-width: 10vw;
+  max-height: 10vw;
+  max-width: 10vw;
+  font-size: 16px;
+  border: 3px black solid;
+  border-radius: 10px;
+}
+
+.movie-info-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin: 10px;
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .movie-rating-div {
+    min-height: 12vw;
+    min-width: 12vw;
+    max-height: 12vw;
+    max-width: 12vw;
+  }
+  .movie-info-para {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .movie-rating-div {
+    min-height: 15vw;
+    min-width: 15vw;
+    max-height: 15vw;
+    max-width: 15vw;
+  }
+  .movie-info-para {
+    font-size: 16px;
+  }
+  .movie-info-head {
+    font-size: 24px;
+  }
+  .cast-head {
+    font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 767px) {
+  .movie-rating-div {
+    min-height: 15vw;
+    min-width: 15vw;
+    max-height: 15vw;
+    max-width: 15vw;
+    border-width: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .movie-info-para {
+    font-size: 12px;
+  }
+  .movie-info-head {
+    font-size: 20px;
+  }
+  .movie-rating {
+    font-size: 20px;
+  }
+  .movie-details-section {
+    flex-direction: column;
+    align-items: center;
+  }
+  .movie-info-div {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cast-head {
+    font-size: 20px;
+  }
+  .details-poster-image {
+    min-height: 35vw;
+    max-height: 35vw;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .movie-rating-div {
+    min-height: 25vw;
+    min-width: 25vw;
+    max-height: 25vw;
+    max-width: 25vw;
+    border-width: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .movie-info-head {
+    font-size: 20px;
+  }
+  .movie-info-para {
+    font-size: 10px;
+  }
+  .movie-rating {
+    font-size: 16px;
+  }
+  .movie-details-section {
+    flex-direction: column;
+    align-items: center;
+  }
+  .movie-info-div {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cast-head {
+    font-size: 16px;
+  }
+  .movie-info {
+    text-align: center;
+  }
+  .details-poster-image {
+    min-height: 40vw;
+    max-height: 40vw;
+  }
+  .cast-info {
+    max-width: 110px;
+  }
+  .poster-image {
+    max-width: 110px;
+  }
 }

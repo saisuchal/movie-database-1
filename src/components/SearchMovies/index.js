@@ -1,25 +1,31 @@
-import Loader from 'react-loader-spinner'
 import './index.css'
 import MovieDatabaseContext from '../../context/MovieDatabaseContext'
-import NavBar from '../NavBar'
 import FetchedMoviesList from '../FetchedMoviesList'
 
 const SearchMovies = () => (
   <MovieDatabaseContext.Consumer>
     {value => {
-      const {formattedData, isLoading, search, viewMovieDetails} = value
-      const {results} = formattedData
-      return isLoading ? (
-        <div className="loader-div">
-          <Loader height="80" width="80" color="#4fa94d" type="ThreeDots" />
-        </div>
-      ) : (
+      const {formattedData, search, viewMovieDetails, isFetchSuccess} = value
+      if (isFetchSuccess) {
+        const {totalResults} = formattedData
+        if (totalResults === 0) {
+          return (
+            <div className="no-results">
+              <p>Search Results could not be found.</p>
+              <p>Try searching again with a different keyword.</p>
+            </div>
+          )
+        }
+      }
+      return (
         <div className="flex-column">
-          <div className="heading">
-            <h1>Search Results For: &quot;{search}&quot;</h1>
+          <div className="heading-div">
+            <h1 className="page-heading">
+              Search Results For: &quot;{search}&quot;
+            </h1>
           </div>
           <FetchedMoviesList
-            results={results}
+            results={formattedData.results}
             viewMovieDetails={viewMovieDetails}
           />
         </div>
