@@ -11,7 +11,7 @@ const NavBar = () => (
           <h1 className="website">movieDB</h1>
           <ul className="tab-list">
             <li className="button-xs-sizing">
-              <Link to="/">
+              <Link to="/?page=1">
                 <button
                   className="tab-button"
                   type="button"
@@ -22,7 +22,7 @@ const NavBar = () => (
                 </button>
               </Link>
             </li>
-            <Link to="/top-rated">
+            <Link to="/top-rated/?page=1">
               <li className="button-xs-sizing">
                 <button
                   className="tab-button"
@@ -34,7 +34,7 @@ const NavBar = () => (
                 </button>
               </li>
             </Link>
-            <Link to="/upcoming">
+            <Link to="/upcoming/?page=1">
               <li className="button-xs-sizing">
                 <button
                   className="tab-button"
@@ -55,7 +55,10 @@ const NavBar = () => (
                   onChange={searchInput}
                   value={search}
                 />
-                <Link to="/search-movies" className="search-button-xs-sizing">
+                <Link
+                  to={`/search-movies/?search=${search}&page=1`}
+                  className="search-button-xs-sizing"
+                >
                   <button
                     type="button"
                     onClick={searchMovies}

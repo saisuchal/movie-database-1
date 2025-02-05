@@ -27,6 +27,7 @@ class App extends Component {
 
   fetchData = async () => {
     const {search, activeTab, activePageDisplay, movieId} = this.state
+    console.log(this.props)
     let url1
     let url2
     const token =
@@ -252,7 +253,12 @@ class App extends Component {
   viewMovieDetails = movieId => {
     const {history} = this.props
     this.setState(
-      {activeTab: 'Movie Details', movieId, isFetchSuccess: false},
+      {
+        activeTab: 'Movie Details',
+        movieId,
+        isFetchSuccess: false,
+        activePageDisplay: 1,
+      },
       this.fetchData,
     )
     history.push(`/movie-details/${movieId}`)
@@ -273,18 +279,18 @@ class App extends Component {
   }
 
   nextPage = () => {
-    const {formattedData, activePageDisplay, activeTab} = this.state
+    const {formattedData, activePageDisplay, activeTab, search} = this.state
     const {totalPages} = formattedData
     const {history} = this.props
     let path
     if (activeTab === 'Top Rated') {
-      path = `/top-rated/${activePageDisplay + 1}`
+      path = `/top-rated/?page=${activePageDisplay + 1}`
     } else if (activeTab === 'Upcoming') {
-      path = `/upcoming/${activePageDisplay + 1}`
+      path = `/upcoming/?page=${activePageDisplay + 1}`
     } else if (activeTab === 'Search Movies') {
-      path = `/search-movies/${activePageDisplay + 1}`
+      path = `/search-movies/?search=${search}&page=${activePageDisplay + 1}`
     } else if (activeTab === 'Popular') {
-      path = `/${activePageDisplay + 1}`
+      path = `/?page=${activePageDisplay + 1}`
     }
     if (activePageDisplay !== totalPages) {
       this.setState(
@@ -299,17 +305,17 @@ class App extends Component {
   }
 
   previousPage = () => {
-    const {activePageDisplay, activeTab} = this.state
+    const {activePageDisplay, activeTab, search} = this.state
     const {history} = this.props
     let path
     if (activeTab === 'Top Rated') {
-      path = `/top-rated/${activePageDisplay - 1}`
+      path = `/top-rated/?page=${activePageDisplay - 1}`
     } else if (activeTab === 'Upcoming') {
-      path = `/upcoming/${activePageDisplay - 1}`
+      path = `/upcoming/?page=${activePageDisplay - 1}`
     } else if (activeTab === 'Search Movies') {
-      path = `/search-movies/${activePageDisplay - 1}`
+      path = `/search-movies/?search=${search}&page=${activePageDisplay + 1}`
     } else {
-      path = `/${activePageDisplay - 1}`
+      path = `/?page=${activePageDisplay - 1}`
     }
     if (activePageDisplay !== 1) {
       this.setState(
@@ -352,9 +358,12 @@ class App extends Component {
         <div>
           <NavBar />
           <Switch>
-            <Route path="/upcoming" component={UpcomingMovies} />
-            <Route path="/top-rated" component={TopRatedMovies} />
-            <Route path="/search-movies" component={SearchMovies} />
+            <Route path="/upcoming/?page=:page" component={UpcomingMovies} />
+            <Route path="/top-rated?page=:page" component={TopRatedMovies} />
+            <Route
+              path="/search-movies?search=:search&page=:page"
+              component={SearchMovies}
+            />
             <Route path="/movie-details/:id" component={MovieDetails} />
             <Route path="/" component={PopularMovies} />
           </Switch>
