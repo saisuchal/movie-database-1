@@ -9,7 +9,6 @@
   position: fixed;
   top: 0;
   background-color: #735da5;
-  font-size: 24px;
   color: white;
 }
 
@@ -27,9 +26,9 @@
 .tab-button {
   background: transparent;
   border-width: 0px;
-  font-size: 20px;
   color: white;
   font-weight: bold;
+  font-size: 20px;
   text-decoration: none;
 }
 
@@ -62,7 +61,7 @@
   font-size: 30px;
 }
 
-@media screen and (min-width: 768px) and (max-width: 991px) {
+@media only screen and ((min-width: 768px) and (max-width: 991px)) {
   .tab-button {
     font-size: 16px;
   }
@@ -71,9 +70,9 @@
   }
 }
 
-@media screen and (min-width: 576px) and (max-width: 767px) {
+@media only screen and ((min-width: 576px) and (max-width: 767px)) {
   .tab-button {
-    font-size: 12px;
+    font-size: 14px;
   }
   .search-button {
     font-size: 10px;
@@ -83,9 +82,10 @@
   }
 }
 
-@media screen and (max-width: 575px) {
+@media only screen and ((max-width: 575px)) {
   .tab-button {
     font-size: 10px;
+    padding: 0px;
   }
   .website {
     font-size: 14px;
@@ -104,13 +104,10 @@
     font-size: 6px;
     margin: 0px;
   }
-  .tab-button {
-    padding: 0px;
-  }
   .search-button-xs-sizing {
     padding-bottom: 10px;
   }
   .button-xs-sizing {
-    padding-bottom: 10px;
+    padding-bottom: 5px;
   }
 }

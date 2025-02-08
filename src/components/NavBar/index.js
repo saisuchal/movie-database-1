@@ -51,7 +51,6 @@ const NavBar = props => {
               onChange={searchInput}
               value={search}
             />
-
             <button
               type="button"
               onClick={searchMovies}
